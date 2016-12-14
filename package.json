@@ -1,5 +1,5 @@
 {
-        "name": "semasim-serial-driver",
+        "name": "at-commands-parser",
         "version": "0.1.0",
         "description": "A library for parsing AT commands input",
         "repository": {
