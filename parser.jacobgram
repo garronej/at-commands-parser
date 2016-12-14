@@ -71,7 +71,7 @@ Basic = 'ID_BASIC' function(id){
         this.commands.push({
                 "type": "basic",
                 "name": id,
-                "arugment": num,
+                "argument": num,
                 "raw": id + num.toString()
         }); 
 
@@ -97,7 +97,7 @@ SRegister = 'S' 'EQ' 'NUM' function(id, _, ascii){
                 "type": "sRegister",
                 "subtype": "set",
                 "regNumber": id.charAt(1),
-                "arugment": {
+                "argument": {
                         "code": ascii,
                         "char": JSON.stringify(String.fromCharCode(ascii))
                 },
