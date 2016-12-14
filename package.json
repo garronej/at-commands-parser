@@ -1,0 +1,16 @@
+{
+  "name": "semasim-serial-driver",
+  "version": "0.0.1",
+  "description": "C'est la fête a la maison youpi",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./index.js"
+  },
+  "author": "Joseph Garrone",
+  "license": "ISC",
+  "dependencies": {
+    "jacob": "garronej/Jacob",
+    "serialport": "EmergingTechnologyAdvisors/node-serialport",
+    "node-python-messaging": "git://github.com/garronej/node-python-messaging.git"
+  }
+}
