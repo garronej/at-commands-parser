@@ -7,8 +7,6 @@ var lexer = new Lexer();
 
 module.exports= function parse(cmd){
 
-        console.log("input", cmd);
-
         lexer.setInput(cmd);
 
         var output={};
