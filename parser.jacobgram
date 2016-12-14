@@ -1,0 +1,288 @@
+%mode LALR
+
+
+Program = 'AT' 'CR' function(){
+
+        this.commands= [];
+
+        this.raw= "AT\r";
+
+} | 'AT' Commands 'CR' function(){
+
+        "use strict";
+
+        this.raw="AT";
+
+        for(let i=0; i<this.commands.length-1; i++){
+
+                this.raw+= this.commands[i].raw;
+
+                if( this.commands[i].type === "general" ){
+
+                        this.raw+= ";";
+
+                }
+
+                this.raw+=" ";
+
+        }
+
+        this.raw+= this.commands[this.commands.length-1].raw + "\r";
+
+};
+
+
+Commands = List BasicOrS 'SC' | List General 'SC' | List BasicOrS | List General | BasicOrS 'SC' | General 'SC';
+
+
+List = List Cases | Cases;
+
+
+Cases = BasicOrS 'SC' | BasicOrS | General 'SC';
+
+
+BasicOrS = Basic | SRegister;
+
+
+Basic = 'ID_BASIC' function(id){
+
+
+        if( this.__stack__.getItem(-1).name === "AT" ){
+
+                this.commands= [];
+
+        }
+
+        this.commands.push({
+                "type": "basic",
+                "name": id,
+                "raw": id
+        }); 
+
+} | 'ID_BASIC' 'NUM' function(id, num){
+
+
+        if( this.__stack__.getItem(-1).name === "AT" ){
+
+                this.commands= [];
+
+        }
+
+        this.commands.push({
+                "type": "basic",
+                "name": id,
+                "arugment": num,
+                "raw": id + num.toString()
+        }); 
+
+
+};
+
+
+SRegister = 'S' 'EQ' 'NUM' function(id, _, ascii){
+
+
+        if( this.__stack__.getItem(-1).name === "AT" ){
+
+                this.commands= [];
+
+        }
+
+        if( ascii > 999 ){
+                throw new Error();
+        }
+
+
+        this.commands.push({
+                "type": "sRegister",
+                "subtype": "set",
+                "regNumber": id.charAt(1),
+                "arugment": {
+                        "code": ascii,
+                        "char": JSON.stringify(String.fromCharCode(ascii))
+                },
+                "raw": id + "=" + ascii
+        }); 
+
+
+
+} | 'S' 'QM' function(id){
+
+
+        if( this.__stack__.getItem(-1).name === "AT" ){
+
+                this.commands= [];
+
+        }
+
+
+        this.commands.push({
+                "type": "sRegister",
+                "subtype": "read",
+                "regNumber": id.charAt(1),
+                "raw": id + "?"
+        }); 
+
+
+};
+
+
+
+General = 'ID_EXTENDED' 'EQ' Values function(name, _, args){ 
+        "use strict";
+
+
+        if( this.__stack__.getItem(-1).name === "AT" ){
+
+                this.commands= [];
+
+        }
+
+        var command= {
+                "type": "general",
+                "subtype": "setOrExex",
+                "name": name,
+                "arguments": args
+        }; 
+
+        command.raw= name.prefix + name.value + "=";
+
+        var fun= function(arg){
+
+                switch(typeof arg){
+                        case "string":
+                                return "\"" + arg + "\"";
+                                break;
+                        case "number":
+                                return arg.toString();
+                                break;
+                        default:
+                                return "";
+                }
+
+        };
+
+        for(let i=0; i<args.length-1; i++){
+
+                command.raw+= fun(args[i]) + ", ";
+
+                
+
+        }
+
+        command.raw+= fun(args[args.length-1]);
+
+        this.commands.push(command);
+
+
+} | 'ID_EXTENDED' function(name){ 
+
+
+        if( this.__stack__.getItem(-1).name === "AT" ){
+
+                this.commands= [];
+
+        }
+
+        this.commands.push({
+                "type": "general",
+                "subtype": "exec",
+                "name": name,
+                "raw": name.prefix + name.value
+        }); 
+
+} | 'ID_EXTENDED' 'QM' function(name){ 
+
+
+        if( this.__stack__.getItem(-1).name === "AT" ){
+
+                this.commands= [];
+
+        }
+
+        this.commands.push({
+                "type": "general",
+                "subtype": "read",
+                "name": name,
+                "raw": name.prefix + name.value + "?"
+        }); 
+
+} | 'ID_EXTENDED' 'EQ' 'QM' function(name){ 
+
+        if( this.__stack__.getItem(-1).name === "AT" ){
+
+                this.commands= [];
+
+        }
+
+        this.commands.push({
+                "type": "general",
+                "subtype": "test",
+                "name": name,
+                "raw": name.prefix + name.value + "=" + "?"
+        }); 
+
+};
+
+
+
+
+
+Values = 'C' Value function(_,v){ 
+
+        return [ undefined, v ];
+
+} | Values2 'C' Value function(args,_,v){
+
+        args.push(v);
+
+        return args;
+
+} | Value function(v){
+
+        return [ v ];
+
+};
+
+
+Values2 = 'C' Value function(_,v){
+
+        return [ undefined, v ];
+
+} | Values2 'C' Value function(args, _, v){
+
+        args.push(v);
+
+        return args;
+
+} | 'C' function(){
+
+        return [ undefined ];
+
+
+} | Values2 'C' function(args){
+
+        args.push(undefined);
+
+        return args;
+
+
+} | Value function(v){
+
+        return [ v ];
+
+};
+
+
+Value = 'NUM' function(v){
+
+        return v;
+
+} | 'INSTRING' function(v){
+
+        return v;
+
+};
+
+
+

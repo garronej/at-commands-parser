@@ -1,0 +1,69 @@
+%%
+
+instring= "([A-Z0-9]|\+)*"
+idExtended= (\+|\^)[A-Z]{2,}
+idBasic= ([A-RT-Z])|(&[A-Z])
+idS= S[0-9]
+
+
+%%
+
+
+<>{instring} { 
+
+        this.jjval= this.jjtext.substring(1, this.jjtext.length-1); 
+
+        return "INSTRING"; 
+}
+
+
+
+
+<>{idBasic} { 
+
+
+        this.jjval= this.jjtext; 
+
+        return "ID_BASIC"; 
+}
+
+
+<>{idS}   { 
+
+
+        this.jjval= this.jjtext;
+
+        return "S"; 
+
+}
+
+
+<>{idExtended} { 
+
+        this.jjval= {
+                "prefix": this.jjtext.substring(0,1),
+                "value": this.jjtext.substring(1, this.jjtext.length)
+        };
+
+        return "ID_EXTENDED"; 
+}
+
+
+
+
+<>[0-9]+ { 
+
+        
+        this.jjval= parseInt(this.jjtext); 
+        
+        return "NUM"; 
+}
+
+<>^AT { return "AT";}
+<>;   { return "SC";}
+<>=   { return "EQ";}
+<>\?  { return "QM";}
+<>,   { return "C"; }
+<>\r  { return "CR";}
+<>\s  {}
+<>$   { return "EOF"; }
