@@ -1,5 +1,3 @@
-"use strict";
-
 var atCommandParser= require("../index");
 
 var cmd= 'ATE0; +CMEE="MM"; +CPMS=,122,,"ABC";I S3=35;^CVOICE=1\r';

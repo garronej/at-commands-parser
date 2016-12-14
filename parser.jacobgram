@@ -32,7 +32,7 @@ Program = 'AT' 'CR' function(){
 };
 
 
-Commands = List BasicOrS 'SC' | List General 'SC' | List BasicOrS | List General | BasicOrS 'SC' | General 'SC';
+Commands = List BasicOrS 'SC' | List General 'SC' | List BasicOrS | List General | BasicOrS 'SC' | General 'SC' | BasicOrS | General;
 
 
 List = List Cases | Cases;
