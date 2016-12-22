@@ -13,7 +13,7 @@
         },
         "author": "Joseph Garrone",
         "license": "MIT",
-        "devDependencies": {
+        "dependencies": {
                 "jacob": "garronej/Jacob"
         }
 }
