@@ -8,11 +8,12 @@
         },
         "main": "index.js",
         "scripts": {
-                "install": "mkdir -p generated && node ./node_modules/jacob/cmd/cmd.js -t lexer.jacoblex -l ./generated/lexer.js -g parser.jacobgram -p ./generated/parser.js"
+                "install": "mkdir -p generated && node ./node_modules/jacob/cmd/cmd.js -t lexer.jacoblex -l ./generated/lexer.js -g parser.jacobgram -p ./generated/parser.js",
+                "test": "node ./example/test"
         },
         "author": "Joseph Garrone",
         "license": "MIT",
-        "dependencies": {
+        "devDependencies": {
                 "jacob": "garronej/Jacob"
         }
 }
