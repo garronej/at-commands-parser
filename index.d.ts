@@ -16,13 +16,13 @@ declare module "at-commands-parser" {
 
 declare var fun: parseAtCommand;
 */
-interface ParsedAtCommand {
+export interface ParsedAtCommand {
     commands: Object[];
     raw: string;
 }
 
 
-interface parseAtCommand {
+export interface parseAtCommand {
     (atCommand: string): ParsedAtCommand;
 }
 
