@@ -5,7 +5,7 @@ var parser = new Parser();
 var lexer = new Lexer();
 
 
-module.exports= function parse(cmd){
+function parser(cmd){
 
         lexer.setInput(cmd);
 
@@ -26,6 +26,8 @@ module.exports= function parse(cmd){
         return output;
 
 };
+
+module.exports= { "atCommandsParser": parser };
 
 
 
