@@ -1,11 +1,15 @@
 declare module "at-commands-parser" {
 
-    export interface ParsedAtCommand {
+    interface ParsedAtCommand {
         commands: Object[];
         raw: string;
     }
 
-    export function parseAtCommand(atCommand: string ): ParsedAtCommand;
+    interface parseAtCommand{
+        (atCommand: string): ParsedAtCommand;
+    }
+
+    export= parseAtCommand;
 
 
 }
