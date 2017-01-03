@@ -1,4 +1,4 @@
-
+/*
 interface ParsedAtCommand {
     commands: Object[];
     raw: string;
@@ -15,3 +15,22 @@ declare module "at-commands-parser" {
 }
 
 declare var fun: parseAtCommand;
+*/
+
+
+declare module "at-commands-parser" {
+
+    export interface ParsedAtCommand {
+        commands: Object[];
+        raw: string;
+    }
+
+
+    export interface parseAtCommand {
+        (atCommand: string): ParsedAtCommand;
+    }
+
+    var fun: parseAtCommand;
+
+    export = fun;
+}
