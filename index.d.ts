@@ -1,4 +1,4 @@
-declare module "node-python-messaging" {
+declare module "at-commands-parser" {
 
     export interface ParsedAtCommand {
         commands: Object[];
