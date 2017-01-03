@@ -5,7 +5,7 @@ declare module "at-commands-parser" {
         raw: string;
     }
 
-    export default function parseAtCommand(atCommand: string ): ParsedAtCommand;
+    export function parseAtCommand(atCommand: string ): ParsedAtCommand;
 
 
 }
