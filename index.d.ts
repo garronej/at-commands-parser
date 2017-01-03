@@ -5,7 +5,7 @@ declare module "node-python-messaging" {
         raw: string;
     }
 
-    export default function parseAtCommand(atCommand: string ):;
+    export default function parseAtCommand(atCommand: string ): ParsedAtCommand;
 
 
 }
