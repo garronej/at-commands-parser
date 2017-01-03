@@ -7,8 +7,13 @@
                 "url": "git://github.com/garronej/at-commands-parser.git"
         },
         "main": "index.js",
+        "types": "./index.d.ts",
         "scripts": {
-                "install": "mkdir -p generated && node ./node_modules/jacob/cmd/cmd.js -t lexer.jacoblex -l ./generated/lexer.js -g parser.jacobgram -p ./generated/parser.js",
+                "postinstall": "npm run build",
+                "build": "npm run jacob",
+                "jacob": "mkdir -p generatedJs && npm run jacoblex && npm run jacobgram",
+                "jacoblex": "jacob -t lexer.jacoblex -l ./generatedJs/Lexer.js",
+                "jacobgram": "jacob -g parser.jacobgram -p ./generatedJs/Parser.js",
                 "test": "node ./example/test"
         },
         "author": "Joseph Garrone",

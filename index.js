@@ -1,5 +1,5 @@
-var Lexer = require("./generated/lexer");
-var Parser = require('./generated/parser');
+var Lexer = require("./generatedJs/Lexer");
+var Parser = require('./generatedJs/Parser');
 
 var parser = new Parser();
 var lexer = new Lexer();
