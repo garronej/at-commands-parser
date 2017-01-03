@@ -29,7 +29,6 @@ interface parseAtCommand {
 
 declare module "at-commands-parser" {
 
-
     var fun: parseAtCommand;
 
     export = fun;
