@@ -8,7 +8,7 @@ declare module "at-commands-parser" {
     export namespace AtCommandImplementations {
 
         export interface General extends AtCommand {
-            subType: string;
+            subtype: string;
             name: {
                 prefix: string,
                 value: string
