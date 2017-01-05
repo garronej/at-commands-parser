@@ -96,7 +96,7 @@ SRegister = 'S' 'EQ' 'NUM' function(id, _, ascii){
         this.commands.push({
                 "type": "sRegister",
                 "subtype": "set",
-                "regNumber": id.charAt(1),
+                "regNumber": parseInt(id.charAt(1)),
                 "argument": {
                         "code": ascii,
                         "char": JSON.stringify(String.fromCharCode(ascii))
@@ -119,7 +119,7 @@ SRegister = 'S' 'EQ' 'NUM' function(id, _, ascii){
         this.commands.push({
                 "type": "sRegister",
                 "subtype": "read",
-                "regNumber": id.charAt(1),
+                "regNumber": parseInt(id.charAt(1)),
                 "raw": id + "?"
         }); 
 
@@ -140,7 +140,7 @@ General = 'ID_EXTENDED' 'EQ' Values function(name, _, args){
 
         var command= {
                 "type": "general",
-                "subtype": "setOrExex",
+                "subtype": "setOrExec",
                 "name": name,
                 "arguments": args
         }; 

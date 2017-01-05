@@ -1,12 +1,12 @@
-var atCommandParser= require("../index");
+var atCommandsParser= require("../index").atCommandsParser;
 
-var cmd= 'ATE0; +CMEE="MM"; +CPMS=,122,,"ABC";I S3=35;^CVOICE=1\r';
+var cmd= 'ATE0; +CMEE="MM"; +CPMS=,122,,"ABC";I S3=35;^CVOICE=1; +CNUM; +CPIN?\r';
 
 console.log("input", JSON.stringify(cmd));
 
 try{
 
-        console.log("output:", JSON.stringify(atCommandParser(cmd), null, 2));
+        console.log("output:", JSON.stringify(atCommandsParser(cmd), null, 2));
 
 }catch(error){
 
