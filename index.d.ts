@@ -29,7 +29,7 @@ declare module "at-commands-parser" {
         }
 
         export interface SRegister extends AtCommand {
-            subType: string;
+            subtype: string;
             regNumber: number;
         }
 
