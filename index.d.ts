@@ -46,7 +46,7 @@ declare module "at-commands-parser" {
 
 
     export interface ParsedAtCommand {
-        commands: Object[];
+        commands: AtCommand[];
         raw: string;
     }
 
