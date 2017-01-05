@@ -5,7 +5,7 @@ declare module "at-commands-parser" {
         raw: string;
     }
 
-    export declare namespace AtCommandImplementations {
+    export namespace AtCommandImplementations {
 
         export interface General extends AtCommand {
             subType: string;
