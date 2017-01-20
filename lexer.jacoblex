@@ -56,20 +56,14 @@ idS= S[0-9]
 <>,     { return "C"; }
 <>\x20  {}
 
-<> \r { 
+<> \r { return "CR"; }
 
-        this.pushState("PDU");
-
-        return "CR";
-
-}
-
-<PDU>[a-fA-F0-9]+ {
+<> ^[a-fA-F0-9]+(\x1a|\x1b) {
 
         this.jjval= this.jjtext;
 
         return "PDU";
+
 }
 
-<PDU>\x1a { return "Ctrl-Z"; }
 

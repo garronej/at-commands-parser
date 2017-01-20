@@ -12,15 +12,7 @@ Program = 'REDO' 'CR' function(){
 
         this.raw= "AT\r";
 
-} | CommandLine | CommandLine 'PDU' 'Ctrl-Z' function(_, pdu){
-
-        this.pdu= pdu;
-
-        this.raw+= pdu + "\u001a";
-
-};
-
-CommandLine= 'AT' Commands 'CR' function(){
+} | 'AT' Commands 'CR' function(){
 
         "use strict";
 
@@ -42,7 +34,17 @@ CommandLine= 'AT' Commands 'CR' function(){
 
         this.raw+= this.commands[this.commands.length-1].raw + "\r";
 
+
+}| 'PDU' function(pdu){
+
+        this.pdu= pdu.slice(0, -1);
+
+        this.commands= [];
+
+        this.raw= pdu;
+
 };
+
 
 
 Commands = List BasicOrS 'SC' | List General 'SC' | List BasicOrS | List General | BasicOrS 'SC' | General 'SC' | BasicOrS | General;
