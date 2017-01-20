@@ -1,6 +1,12 @@
 %mode LALR
 
-Program = 'AT' 'CR' function(){
+Program = 'REDO' 'CR' function(){
+
+        this.commands= [];
+
+        this.raw= "A/\r";
+
+} | 'AT' 'CR' function(){
 
         this.commands= [];
 

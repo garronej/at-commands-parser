@@ -48,6 +48,7 @@ idS= S[0-9]
         return "NUM"; 
 }
 
+<>^A\/  { return "REDO"; }
 <>^AT   { return "AT";}
 <>;     { return "SC";}
 <>=     { return "EQ";}
