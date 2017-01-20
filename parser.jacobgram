@@ -1,13 +1,20 @@
 %mode LALR
 
-
 Program = 'AT' 'CR' function(){
 
         this.commands= [];
 
         this.raw= "AT\r";
 
-} | 'AT' Commands 'CR' function(){
+} | CommandLine | CommandLine 'PDU' 'Ctrl-Z' function(_, pdu){
+
+        this.pdu= pdu;
+
+        this.raw+= pdu + "\u001a";
+
+};
+
+CommandLine= 'AT' Commands 'CR' function(){
 
         "use strict";
 
@@ -149,7 +156,7 @@ General = 'ID_EXTENDED' 'EQ' Values function(name, _, args){
 
         var fun= function(arg){
 
-                switch(typeof arg){
+                switch(typeof(arg)){
                         case "string":
                                 return "\"" + arg + "\"";
                                 break;

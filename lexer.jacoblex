@@ -8,7 +8,6 @@ idS= S[0-9]
 
 %%
 
-
 <>{instring} { 
 
         this.jjval= this.jjtext.substring(1, this.jjtext.length-1); 
@@ -16,11 +15,7 @@ idS= S[0-9]
         return "INSTRING"; 
 }
 
-
-
-
 <>{idBasic} { 
-
 
         this.jjval= this.jjtext; 
 
@@ -30,13 +25,11 @@ idS= S[0-9]
 
 <>{idS}   { 
 
-
         this.jjval= this.jjtext;
 
         return "S"; 
 
 }
-
 
 <>{idExtended} { 
 
@@ -48,22 +41,34 @@ idS= S[0-9]
         return "ID_EXTENDED"; 
 }
 
-
-
-
 <>[0-9]+ { 
 
-        
         this.jjval= parseInt(this.jjtext); 
         
         return "NUM"; 
 }
 
-<>^AT { return "AT";}
-<>;   { return "SC";}
-<>=   { return "EQ";}
-<>\?  { return "QM";}
-<>,   { return "C"; }
-<>\r  { return "CR";}
-<>\s  {}
-<>$   { return "EOF"; }
+<>^AT   { return "AT";}
+<>;     { return "SC";}
+<>=     { return "EQ";}
+<>\?    { return "QM";}
+<>,     { return "C"; }
+<>\x20  {}
+
+<> \r { 
+
+        this.pushState("PDU");
+
+        return "CR";
+
+}
+
+<PDU>[a-fA-F0-9]+ {
+
+        this.jjval= this.jjtext;
+
+        return "PDU";
+}
+
+<PDU>\x1a { return "Ctrl-Z"; }
+

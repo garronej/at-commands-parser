@@ -17,6 +17,7 @@ function parse(cmd){
 
         }catch(error){
 
+                console.log(error.message);
 
                 throw new Error("malformed");
 
